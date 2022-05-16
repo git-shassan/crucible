@@ -1,5 +1,5 @@
 apiVersion: ocs.openshift.io/v1
-kind: StorageCluster
+kind: StorageCluster 
 metadata:
   name: odf-storagecluster
   namespace: openshift-storage
