@@ -1,0 +1,127 @@
+apiVersion: ocs.openshift.io/v1
+kind: StorageCluster
+metadata:
+  annotations:
+    cluster.ocs.openshift.io/local-devices: "true"
+    uninstall.ocs.openshift.io/cleanup-policy: delete
+    uninstall.ocs.openshift.io/mode: graceful
+  creationTimestamp: "2022-05-18T17:14:35Z"
+  finalizers:
+  - storagecluster.ocs.openshift.io
+  generation: 2
+  name: ocs-storagecluster
+  namespace: openshift-storage
+  ownerReferences:
+  - apiVersion: odf.openshift.io/v1alpha1
+    kind: StorageSystem
+    name: ocs-storagecluster-storagesystem
+    uid: 43b41e44-f137-4595-ab60-8460120e6e0c
+  resourceVersion: "955462"
+  uid: 8acafd18-b16d-4765-8221-8be7fff53c8b
+spec:
+  arbiter: {}
+  encryption:
+    kms: {}
+  externalStorage: {}
+  flexibleScaling: true
+  managedResources:
+    cephBlockPools: {}
+    cephCluster: {}
+    cephConfig: {}
+    cephDashboard: {}
+    cephFilesystems: {}
+    cephObjectStoreUsers: {}
+    cephObjectStores: {}
+  mirroring: {}
+  monDataDirHostPath: /var/lib/rook
+  nodeTopologies: {}
+  storageDeviceSets:
+  - config: {}
+    count: 3
+    dataPVCTemplate:
+      metadata: {}
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: "1"
+        storageClassName: localblock
+        volumeMode: Block
+      status: {}
+    name: ocs-deviceset-localblock
+    placement: {}
+    preparePlacement: {}
+    replica: 1
+    resources: {}
+  version: 4.10.0
+status:
+  conditions:
+  - lastHeartbeatTime: "2022-05-19T16:52:17Z"
+    lastTransitionTime: "2022-05-18T23:42:40Z"
+    message: Reconcile completed successfully
+    reason: ReconcileCompleted
+    status: "True"
+    type: ReconcileComplete
+  - lastHeartbeatTime: "2022-05-19T16:52:17Z"
+    lastTransitionTime: "2022-05-18T17:41:36Z"
+    message: Reconcile completed successfully
+    reason: ReconcileCompleted
+    status: "True"
+    type: Available
+  - lastHeartbeatTime: "2022-05-19T16:52:17Z"
+    lastTransitionTime: "2022-05-18T17:41:36Z"
+    message: Reconcile completed successfully
+    reason: ReconcileCompleted
+    status: "False"
+    type: Progressing
+  - lastHeartbeatTime: "2022-05-19T16:52:17Z"
+    lastTransitionTime: "2022-05-18T17:14:34Z"
+    message: Reconcile completed successfully
+    reason: ReconcileCompleted
+    status: "False"
+    type: Degraded
+  - lastHeartbeatTime: "2022-05-19T16:52:17Z"
+    lastTransitionTime: "2022-05-18T17:41:36Z"
+    message: Reconcile completed successfully
+    reason: ReconcileCompleted
+    status: "True"
+    type: Upgradeable
+  externalStorage:
+    grantedCapacity: "0"
+  failureDomain: host
+  failureDomainKey: kubernetes.io/hostname
+  failureDomainValues:
+  - super1
+  - super2
+  - super3
+  images:
+    ceph:
+      actualImage: registry.redhat.io/rhceph/rhceph-5-rhel8@sha256:5c75d05c7c532072ec97bba9951cc225bcb16c3f0c9ba9c0a293cb7a00b53b5a
+      desiredImage: registry.redhat.io/rhceph/rhceph-5-rhel8@sha256:5c75d05c7c532072ec97bba9951cc225bcb16c3f0c9ba9c0a293cb7a00b53b5a
+    noobaaCore:
+      actualImage: registry.redhat.io/odf4/mcg-core-rhel8@sha256:80897f0ac2df4039b98cfda43118d2b00f4ccef9a9495e733dfaab75ab1ecfb0
+      desiredImage: registry.redhat.io/odf4/mcg-core-rhel8@sha256:80897f0ac2df4039b98cfda43118d2b00f4ccef9a9495e733dfaab75ab1ecfb0
+    noobaaDB:
+      actualImage: registry.redhat.io/rhel8/postgresql-12@sha256:fa920188f567e51d75aacd723f0964026e42ac060fed392036e8d4b3c7a8129f
+      desiredImage: registry.redhat.io/rhel8/postgresql-12@sha256:fa920188f567e51d75aacd723f0964026e42ac060fed392036e8d4b3c7a8129f
+  nodeTopologies:
+    labels:
+      kubernetes.io/hostname:
+      - super1
+      - super2
+      - super3
+  phase: Ready
+  relatedObjects:
+  - apiVersion: ceph.rook.io/v1
+    kind: CephCluster
+    name: ocs-storagecluster-cephcluster
+    namespace: openshift-storage
+    resourceVersion: "955265"
+    uid: 2b80d832-9e3d-4f03-b6d8-9176b01dcdd6
+  - apiVersion: noobaa.io/v1alpha1
+    kind: NooBaa
+    name: noobaa
+    namespace: openshift-storage
+    resourceVersion: "955460"
+    uid: 2de8e116-1746-4c8d-a993-823aa5259abe

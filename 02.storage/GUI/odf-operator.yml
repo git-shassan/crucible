@@ -1,0 +1,125 @@
+apiVersion: operators.coreos.com/v1
+kind: Operator
+metadata:
+  creationTimestamp: "2022-05-18T17:11:47Z"
+  generation: 1
+  name: odf-operator.openshift-storage
+  resourceVersion: "56013"
+  uid: b173da85-434a-44b6-b774-48de6a2c9c98
+spec: {}
+status:
+  components:
+    labelSelector:
+      matchExpressions:
+      - key: operators.coreos.com/odf-operator.openshift-storage
+        operator: Exists
+    refs:
+    - apiVersion: apps/v1
+      conditions:
+      - lastTransitionTime: "2022-05-18T17:12:07Z"
+        lastUpdateTime: "2022-05-18T17:12:55Z"
+        message: ReplicaSet "odf-console-696884f7cb" has successfully progressed.
+        reason: NewReplicaSetAvailable
+        status: "True"
+        type: Progressing
+      - lastTransitionTime: "2022-05-18T17:39:38Z"
+        lastUpdateTime: "2022-05-18T17:39:38Z"
+        message: Deployment has minimum availability.
+        reason: MinimumReplicasAvailable
+        status: "True"
+        type: Available
+      kind: Deployment
+      name: odf-console
+      namespace: openshift-storage
+    - apiVersion: apps/v1
+      conditions:
+      - lastTransitionTime: "2022-05-18T17:12:07Z"
+        lastUpdateTime: "2022-05-18T17:12:27Z"
+        message: ReplicaSet "odf-operator-controller-manager-56d74b8688" has successfully
+          progressed.
+        reason: NewReplicaSetAvailable
+        status: "True"
+        type: Progressing
+      - lastTransitionTime: "2022-05-18T17:39:50Z"
+        lastUpdateTime: "2022-05-18T17:39:50Z"
+        message: Deployment has minimum availability.
+        reason: MinimumReplicasAvailable
+        status: "True"
+        type: Available
+      kind: Deployment
+      name: odf-operator-controller-manager
+      namespace: openshift-storage
+    - apiVersion: v1
+      kind: Service
+      name: odf-operator-controller-manager-metrics-service
+      namespace: openshift-storage
+    - apiVersion: apiextensions.k8s.io/v1
+      conditions:
+      - lastTransitionTime: "2022-05-18T17:12:04Z"
+        message: no conflicts found
+        reason: NoConflicts
+        status: "True"
+        type: NamesAccepted
+      - lastTransitionTime: "2022-05-18T17:12:04Z"
+        message: the initial names have been accepted
+        reason: InitialNamesAccepted
+        status: "True"
+        type: Established
+      kind: CustomResourceDefinition
+      name: storagesystems.odf.openshift.io
+    - apiVersion: operators.coreos.com/v1alpha1
+      conditions:
+      - lastTransitionTime: "2022-05-18T17:11:46Z"
+        message: all available catalogsources are healthy
+        reason: AllCatalogSourcesHealthy
+        status: "False"
+        type: CatalogSourcesUnhealthy
+      kind: Subscription
+      name: odf-operator
+      namespace: openshift-storage
+    - apiVersion: operators.coreos.com/v1alpha1
+      conditions:
+      - lastTransitionTime: "2022-05-18T17:12:16Z"
+        lastUpdateTime: "2022-05-18T17:12:16Z"
+        status: "True"
+        type: Installed
+      kind: InstallPlan
+      name: install-h44mz
+      namespace: openshift-storage
+    - apiVersion: operators.coreos.com/v1alpha1
+      conditions:
+      - lastTransitionTime: "2022-05-18T17:39:49Z"
+        lastUpdateTime: "2022-05-18T17:39:49Z"
+        message: install strategy completed with no errors
+        reason: InstallSucceeded
+        status: "True"
+        type: Succeeded
+      kind: ClusterServiceVersion
+      name: odf-operator.v4.10.2
+      namespace: openshift-storage
+    - apiVersion: operators.coreos.com/v2
+      kind: OperatorCondition
+      name: odf-operator.v4.10.2
+      namespace: openshift-storage
+    - apiVersion: v1
+      kind: ConfigMap
+      name: odf-operator-manager-config
+      namespace: openshift-storage
+    - apiVersion: v1
+      kind: ServiceAccount
+      name: odf-operator-controller-manager
+      namespace: openshift-storage
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      name: odf-operator.v4.10.2-odf-operator-controller-manager-597949784
+      namespace: openshift-storage
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      name: odf-operator.v4.10.2-odf-operator-controller-manager-597949784
+      namespace: openshift-storage
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRole
+      name: odf-operator.v4.10.2-54b77456b8
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      name: odf-operator.v4.10.2-54b77456b8

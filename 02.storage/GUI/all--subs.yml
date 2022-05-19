@@ -1,0 +1,351 @@
+apiVersion: v1
+items:
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: Subscription
+  metadata:
+    annotations:
+      olm.generated-by: install-h44mz
+    creationTimestamp: "2022-05-18T17:11:59Z"
+    generation: 1
+    labels:
+      operators.coreos.com/mcg-operator.openshift-storage: ""
+    name: mcg-operator-stable-4.10-redhat-operators-openshift-marketplace
+    namespace: openshift-storage
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Subscription
+      name: odf-operator
+      uid: 911b6243-fa05-4776-9fc1-4d956dcedad6
+    resourceVersion: "43166"
+    uid: 6a0f9a87-0dab-4bb5-aed6-6f71baff66f4
+  spec:
+    channel: stable-4.10
+    installPlanApproval: Automatic
+    name: mcg-operator
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    startingCSV: mcg-operator.v4.10.2
+  status:
+    catalogHealth:
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: certified-operators
+        namespace: openshift-marketplace
+        resourceVersion: "29722"
+        uid: 8b2fdad1-fc3c-4db5-aee2-942341ed6f14
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:59Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: community-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31844"
+        uid: a2cf39d0-9cfd-4339-9231-0b1f8ea5f33e
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:59Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-marketplace
+        namespace: openshift-marketplace
+        resourceVersion: "31745"
+        uid: 0d804e71-3544-49cd-844c-b4a26c5925bd
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:59Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31899"
+        uid: e8a4a324-8254-40f6-a2b2-2c3da45809b9
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:59Z"
+    conditions:
+    - lastTransitionTime: "2022-05-18T17:11:59Z"
+      message: all available catalogsources are healthy
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+    currentCSV: mcg-operator.v4.10.2
+    installPlanRef:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-h44mz
+      namespace: openshift-storage
+      resourceVersion: "32802"
+      uid: 80f6fe35-d2c7-449b-902a-c96161e6d1f1
+    installedCSV: mcg-operator.v4.10.2
+    installplan:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-h44mz
+      uuid: 80f6fe35-d2c7-449b-902a-c96161e6d1f1
+    lastUpdated: "2022-05-18T17:21:25Z"
+    state: AtLatestKnown
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: Subscription
+  metadata:
+    annotations:
+      olm.generated-by: install-h44mz
+    creationTimestamp: "2022-05-18T17:11:59Z"
+    generation: 1
+    labels:
+      operators.coreos.com/ocs-operator.openshift-storage: ""
+    name: ocs-operator-stable-4.10-redhat-operators-openshift-marketplace
+    namespace: openshift-storage
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Subscription
+      name: odf-operator
+      uid: 911b6243-fa05-4776-9fc1-4d956dcedad6
+    resourceVersion: "43165"
+    uid: d26fca9e-b56e-4eb0-8922-14e07a0ad7c6
+  spec:
+    channel: stable-4.10
+    installPlanApproval: Automatic
+    name: ocs-operator
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    startingCSV: ocs-operator.v4.10.2
+  status:
+    catalogHealth:
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: certified-operators
+        namespace: openshift-marketplace
+        resourceVersion: "29722"
+        uid: 8b2fdad1-fc3c-4db5-aee2-942341ed6f14
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:00Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: community-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31844"
+        uid: a2cf39d0-9cfd-4339-9231-0b1f8ea5f33e
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:00Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-marketplace
+        namespace: openshift-marketplace
+        resourceVersion: "31745"
+        uid: 0d804e71-3544-49cd-844c-b4a26c5925bd
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:00Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31899"
+        uid: e8a4a324-8254-40f6-a2b2-2c3da45809b9
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:00Z"
+    conditions:
+    - lastTransitionTime: "2022-05-18T17:12:00Z"
+      message: all available catalogsources are healthy
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+    currentCSV: ocs-operator.v4.10.2
+    installPlanRef:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-h44mz
+      namespace: openshift-storage
+      resourceVersion: "32907"
+      uid: 80f6fe35-d2c7-449b-902a-c96161e6d1f1
+    installedCSV: ocs-operator.v4.10.2
+    installplan:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-h44mz
+      uuid: 80f6fe35-d2c7-449b-902a-c96161e6d1f1
+    lastUpdated: "2022-05-18T17:21:25Z"
+    state: AtLatestKnown
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: Subscription
+  metadata:
+    creationTimestamp: "2022-05-18T17:12:17Z"
+    generation: 1
+    labels:
+      operators.coreos.com/odf-csi-addons-operator.openshift-storage: ""
+    name: odf-csi-addons-operator
+    namespace: openshift-storage
+    ownerReferences:
+    - apiVersion: operators.coreos.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Subscription
+      name: odf-operator
+      uid: 911b6243-fa05-4776-9fc1-4d956dcedad6
+    resourceVersion: "34571"
+    uid: 74dcad99-2788-482a-96d5-55f7fa2072fc
+  spec:
+    channel: stable-4.10
+    config:
+      tolerations:
+      - effect: NoSchedule
+        key: node.ocs.openshift.io/storage
+        operator: Equal
+        value: "true"
+    installPlanApproval: Automatic
+    name: odf-csi-addons-operator
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    startingCSV: odf-csi-addons-operator.v4.10.2
+  status:
+    catalogHealth:
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: certified-operators
+        namespace: openshift-marketplace
+        resourceVersion: "29722"
+        uid: 8b2fdad1-fc3c-4db5-aee2-942341ed6f14
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:17Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: community-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31844"
+        uid: a2cf39d0-9cfd-4339-9231-0b1f8ea5f33e
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:17Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-marketplace
+        namespace: openshift-marketplace
+        resourceVersion: "31745"
+        uid: 0d804e71-3544-49cd-844c-b4a26c5925bd
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:17Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31899"
+        uid: e8a4a324-8254-40f6-a2b2-2c3da45809b9
+      healthy: true
+      lastUpdated: "2022-05-18T17:12:17Z"
+    conditions:
+    - lastTransitionTime: "2022-05-18T17:12:17Z"
+      message: all available catalogsources are healthy
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+    currentCSV: odf-csi-addons-operator.v4.10.2
+    installPlanGeneration: 2
+    installPlanRef:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-2n24x
+      namespace: openshift-storage
+      resourceVersion: "33963"
+      uid: d218416f-58e5-42af-bf39-4d6b67721564
+    installedCSV: odf-csi-addons-operator.v4.10.2
+    installplan:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-2n24x
+      uuid: d218416f-58e5-42af-bf39-4d6b67721564
+    lastUpdated: "2022-05-18T17:12:42Z"
+    state: AtLatestKnown
+- apiVersion: operators.coreos.com/v1alpha1
+  kind: Subscription
+  metadata:
+    creationTimestamp: "2022-05-18T17:11:46Z"
+    generation: 1
+    labels:
+      operators.coreos.com/odf-operator.openshift-storage: ""
+    name: odf-operator
+    namespace: openshift-storage
+    resourceVersion: "35200"
+    uid: 911b6243-fa05-4776-9fc1-4d956dcedad6
+  spec:
+    channel: stable-4.10
+    installPlanApproval: Automatic
+    name: odf-operator
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    startingCSV: odf-operator.v4.10.2
+  status:
+    catalogHealth:
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: certified-operators
+        namespace: openshift-marketplace
+        resourceVersion: "29722"
+        uid: 8b2fdad1-fc3c-4db5-aee2-942341ed6f14
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:46Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: community-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31844"
+        uid: a2cf39d0-9cfd-4339-9231-0b1f8ea5f33e
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:46Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-marketplace
+        namespace: openshift-marketplace
+        resourceVersion: "31745"
+        uid: 0d804e71-3544-49cd-844c-b4a26c5925bd
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:46Z"
+    - catalogSourceRef:
+        apiVersion: operators.coreos.com/v1alpha1
+        kind: CatalogSource
+        name: redhat-operators
+        namespace: openshift-marketplace
+        resourceVersion: "31899"
+        uid: e8a4a324-8254-40f6-a2b2-2c3da45809b9
+      healthy: true
+      lastUpdated: "2022-05-18T17:11:46Z"
+    conditions:
+    - lastTransitionTime: "2022-05-18T17:11:46Z"
+      message: all available catalogsources are healthy
+      reason: AllCatalogSourcesHealthy
+      status: "False"
+      type: CatalogSourcesUnhealthy
+    currentCSV: odf-operator.v4.10.2
+    installPlanGeneration: 1
+    installPlanRef:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-h44mz
+      namespace: openshift-storage
+      resourceVersion: "32608"
+      uid: 80f6fe35-d2c7-449b-902a-c96161e6d1f1
+    installedCSV: odf-operator.v4.10.2
+    installplan:
+      apiVersion: operators.coreos.com/v1alpha1
+      kind: InstallPlan
+      name: install-h44mz
+      uuid: 80f6fe35-d2c7-449b-902a-c96161e6d1f1
+    lastUpdated: "2022-05-18T17:13:01Z"
+    state: AtLatestKnown
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
