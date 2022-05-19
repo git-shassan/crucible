@@ -10,9 +10,11 @@ all:
     # Cluster name and dns domain combine to give the cluster namespace that will contain OpenShift endpoints
     # e.g. api.clustername.example.lab, worker1.clustername.example.lab
     cluster_name: syed-cluster
+    # cluster_id: syed-cluster
     base_dns_domain: practice.redhat.com
 
     # OpenShift version (4.6.16, 4.7.33, 4.8.14 or 4.9.0)
+    # openshift_full_version: 4.8.14
     openshift_full_version: 4.10.3
 
     # ai_version: v1.0.24.2
@@ -31,14 +33,14 @@ all:
           support_level: production
 
     # Virtual IP addresses used to access the resulting OpenShift cluster
-    api_vip: 10.1.198.60 # the IP address to be used for api.clustername.example.lab and api-int.clustername.example.lab
-    ingress_vip: 10.1.198.61 # the IP address to be used for *.apps.clustername.example.lab
+    api_vip: 10.1.198.45 # the IP address to be used for api.clustername.example.lab and api-int.clustername.example.lab
+    ingress_vip: 10.1.198.44 # the IP address to be used for *.apps.clustername.example.lab
 
     ## Allocate virtual IPs via DHCP server. Equivalent to the vip_dhcp_allocation configuration option of Assisted Installer
     vip_dhcp_allocation: false
 
     # The subnet on which all nodes are (or will be) accessible.
-    machine_network_cidr: 10.1.198.48/28
+    machine_network_cidr: 10.1.198.32/28
 
     # The IP address pool to use for service IP addresses
     service_network_cidr: 172.30.0.0/16
@@ -60,7 +62,7 @@ all:
     # You will need to ensure alternatives are available for anything that will not be automatically set up
     setup_ntp_service: true
     setup_dns_service: true
-    setup_pxe_service: false
+    # setup_pxe_service: true
     setup_registry_service: false # Only required for a Restricted Network installation
     setup_http_store_service: true
     setup_assisted_installer: true # default is true you may wish to turn it off if multiple users are using the same instance.
@@ -68,9 +70,9 @@ all:
 
     # NTP Service
     # ntp_server is the address at which the NTP service is (or will be) available
-    ntp_server: 10.1.198.49
+    ntp_server: 10.1.198.33
     # ntp_server_allow is the range of IPs the NTP service will respond to
-    ntp_server_allow: 10.1.198.48/28 # not required if setup_ntp_service is false
+    ntp_server_allow: 10.1.198.32/28 # not required if setup_ntp_service is false
 
 
     # Mirror Registry Service parameters for a Restricted Network installation
@@ -155,7 +157,7 @@ all:
     bastions: # n.b. Currently only a single bastion is supported
       hosts:
         bastion:
-          ansible_host: 10.1.198.49 # Must be reachable from the Ansible control node
+          ansible_host:  10.1.198.33  # Must be reachable from the Ansible control node <SH> this shoudl be vlan302 address as its used by VM..maybe
           ansible_connection: local # if your are not running crucible from the bastion then remove this line
 
     # Configuration and access information for the pre-requisite services
@@ -163,14 +165,16 @@ all:
     services:
       hosts:
         assisted_installer:
-          ansible_host: 10.1.198.49
-          host: 10.1.198.49
+          # ansible_host: pool2-infra1.practice.redhat.com
+          ansible_host: 10.1.198.33 # <SH> this has to be a host thats reachable from within VM
+          # host: pool2-infra1.practice.redhat.com  # <SH> What is this entry? <<<
+          host: 10.1.198.33 # <SH> same comment as last one
           port: 8090 # Do not change
 
         registry_host:
-          ansible_host: 10.1.198.49
+          ansible_host: pool2-infra1.practice.redhat.com
           registry_port: 5000
-          registry_fqdn: registry.example.lab # use in case of different FQDN for the cert
+          registry_fqdn: pool2-infra1.practice.redhat.com # use in case of different FQDN for the cert
           cert_common_name: "{{ registry_fqdn }}"
           cert_country: US
           cert_locality: Raleigh
@@ -184,10 +188,9 @@ all:
           disconnected_registry_password: "{{ VAULT_REGISTRY_HOST_DISCONNECTED_REGISTRY_PASSWORD | mandatory }}"
 
         dns_host:
-          ansible_host: 10.1.198.49
-          upstream_dns: 8.8.8.8 # an optional upstream dns server
-          listen_addresses:
-            - 10.1.198.49
+          ansible_host: 10.1.198.33  # <SH> I guess I could have used the DNS name here instead of IP. Should be same thing
+          listen_address: 10.1.198.33 
+          # upstream_dns: 8.8.8.8 # an optional upstream dns server
           # The following are required for DHCP setup
           # use_dhcp: true
           # use_pxe: false
@@ -197,29 +200,28 @@ all:
           # gateway: 10.60.0.1
 
         http_store:
-          ansible_host: 10.1.198.49
+          ansible_host: 10.1.198.33 # <SH> I guess I could have used the DNS name here instead of IP. Should be same thing
         
-        tftp_host:
-          ansible_host: 10.1.198.49
-          tftp_directory: /var/lib/tftpboot/ 
+          # tftp_host:
+          # ansible_host: "{{ hostvars['dns_host']['ansible_host'] }}"
+          # tftp_directory: /var/lib/tftpboot/ 
 
         ntp_host:
-          ansible_host: 10.1.198.49
-
+          ansible_host: 10.1.198.33
     vm_hosts:
       hosts:
         vm_host1: # Required for using "KVM" nodes, ignored if not.
-          destroy_vms: true
           ansible_user: root
-          ansible_host: 10.1.198.50
+          ansible_host: 10.1.196.26 # <SH> My undersranding is that this is the KVM-host. Also, using its managment IP, not the bridge IP
+                                    # <SH> Could I use either??  <<<
           host_ip_keyword: ansible_host # the varname in the KVM node hostvars which contains the *IP* of the VM
-          images_dir: /home/images # directory where qcow images will be placed.
-          vm_bridge_ip: 10.1.198.50 # IP for the bridge between VMs and machine network
-          vm_bridge_interface: enp5s0f1 # Interface to be connected to the bridge. DO NOT use your primary interface.
-          dns: 10.1.198.49 # DNS used by the bridge
-          SETUP_VM_BRIDGE: false
-          vm_bridge_name: br303
-          network_name: br303
+          images_dir: /var/lib/libvirt/images # directory where qcow images will be placed.
+          vm_bridge_ip: 10.1.198.34 # IP for the bridge between VMs and machine network
+          vm_bridge_interface: eno2 # Interface to be connected to the bridge. DO NOT use your primary interface.
+          vm_bridge_name: br302 # <SH> wasnt in the sample. 
+          network_name: br302 # <SH> wasn't in the sample 
+          dns: 10.1.198.33 # DNS used by the bridge
+          SETUP_VM_BRIDGE: false  # Since I have the bridge pre-configured
           # ssl cert configuration
           # sushy_fqdn: ... # use in case of different FQDN for the cert
           cert_vars_host_var_key: registry_host # Look up cert values from another host by name (excluding cert_common_name)
@@ -276,8 +278,8 @@ all:
         # Set the login information for any BMCs. Note that these will be SET on the vm_host virtual BMC.
         bmc_user: "{{ VAULT_NODES_BMC_USER | mandatory }}"
         bmc_password: "{{ VAULT_NODES_BMC_PASSWORD | mandatory }}"
-        dns1: 10.1.198.49
-        gateway: 10.1.198.62
+        dns1: 10.1.198.33
+        gateway: 10.1.198.46
         mask: 28
         network_config:
           interfaces:
@@ -295,46 +297,47 @@ all:
             - destination: 0.0.0.0/0
               address: "{{ gateway }}"
               interface: enp1s0
-
       children:
         masters:
           vars:
             role: master
             vendor: KVM # this example is a virtual control plane
-            bmc_address: "10.1.198.50:8082" # port can be changed using sushy_tools_port on the vm_host
+            bmc_address: "10.1.196.26:8082" # port can be changed using sushy_tools_port on the vm_host
             vm_host: vm_host1
             vm_spec:
-              cpu_cores: 4
-              ram_mib: 16384
-              disk_size_gb: 100
+              cpu_cores: 16
+              ram_mib: 30720
+              disk_size_gb: 200
+              extra_disks:
+                odf_data: 100
           hosts:
-            master1:
-              ansible_host: 10.1.198.51
-              mac: "DE:AD:BE:EF:C0:2C"
+            super1:
+              ansible_host: 10.1.198.40
+              mac: "DE:AD:BE:EF:C0:2C" # <SH> probably no need to change these..
 
               # # Uncomment to set custom BMC credentials for the node
               # # These variables must be set in the inventory.vault.yml file
               # bmc_user: "{{ VAULT_NODES_SUPER1_BMC_USER | mandatory }}"
               # bmc_password: "{{ VAULT_NODES_SUPER1_BMC_PASSWORD | mandatory }}"
 
-            master2:
-              ansible_host: 10.1.198.52
+            super2:
+              ansible_host: 10.1.198.41
               mac: "DE:AD:BE:EF:C0:2D"
 
-            master3:
-              ansible_host: 10.1.198.53
+            super3:
+              ansible_host: 10.1.198.42
               mac: "DE:AD:BE:EF:C0:2E"
 
-        #workers:
-          #vars:
-            #role: worker
-            #vendor: Dell # This example uses baremetal worker nodes
-          #hosts:
-            #worker1:
-              #ansible_host: 10.60.0.104
-              #bmc_address: 172.28.11.25
-              #mac: 3C:FD:FE:78:AB:03
-##
+              # workers:
+              # vars:
+              # role: worker
+              # vendor: Dell # This example uses baremetal worker nodes
+              # hosts:
+              # worker1:
+              # ansible_host: 10.60.0.104
+              # bmc_address: 172.28.11.25
+              # mac: 3C:FD:FE:78:AB:03
+
               # # Uncomment to set custom BMC credentials for the node
               # # These variables must be set in the inventory.vault.yml file
               # bmc_user: "{{ VAULT_NODES_WORKER1_BMC_USER | mandatory }}"
@@ -343,12 +346,12 @@ all:
               # # Uncomment to set an alternate installation disk device for the node
               # installation_disk_path: /dev/sdb
               
-            #worker2:
-              #ansible_host: 10.60.0.105
-              #bmc_address: 172.28.11.26
-              #mac: 3C:FD:FE:78:AB:04
-#
-              ## # Uncomment to set an alternate installation disk device for the node
+              # worker2:
+              # ansible_host: 10.60.0.105
+              # bmc_address: 172.28.11.26
+              # mac: 3C:FD:FE:78:AB:04
+
+              # # Uncomment to set an alternate installation disk device for the node
               # installation_disk_path: /dev/sdb
              
            

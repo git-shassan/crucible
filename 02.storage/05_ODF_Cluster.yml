@@ -15,8 +15,8 @@ spec:
         cpu: "3"
         memory: "8Gi"
       requests:
-        cpu: "3"
-        memory: "8Gi"
+        cpu: "1"
+        memory: "2Gi"
   monDataDirHostPath: /var/lib/rook
   managedResources:
     cephBlockPools:
@@ -47,5 +47,5 @@ spec:
         cpu: "2"
         memory: "5Gi"
       requests:
-        cpu: "2"
-        memory: "5Gi"
+        cpu: "1"
+        memory: "2Gi"
