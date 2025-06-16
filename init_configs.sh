@@ -34,10 +34,10 @@ sleep 20
 dnf -y install libvirt libvirt-daemon-driver-qemu qemu-kvm
 usermod -aG qemu,libvirt $(id -un)
 newgrp libvirt
-logger "Finishing 2a"
-sleep 30
+echo "Finishing 2a"
+sleep 60
 systemctl enable libvirtd --now
-logger "done with 2a"
+echo "done with 2a"
 ###################
 # Step#2b: set up SSH:
 ###################
@@ -53,7 +53,7 @@ dnf -y install kcli bash-completion vim jq tar git ipcalc python3-pip
 # Step#2d: Virtual Machine images default location
 ###################
 kcli create pool -p /var/lib/libvirt/images default
-logger "Done with 2d"
+echo "Done with 2d"
 ###################
 # Step#2e: Install other tools:
 ###################
@@ -81,7 +81,7 @@ rm -f openshift-client-linux-$OC_CLIENT.tar.gz
 oc completion bash > oc.bash_completion
 mv oc.bash_completion /etc/bash_completion.d/
 #
-curl https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/$OC_CLIENT/oc-mirror.tar.gz -o oc-mirror.tar.gz
+wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/$OC_CLIENT/oc-mirror.tar.gz 
 tar -xvf oc-mirror.tar.gz
 rm -f oc-mirror.tar.gz
 chmod u+x oc-mirror
@@ -93,7 +93,7 @@ mv oc-mirror /usr/bin/
 # create cluster:
 kcli create network -c 192.168.125.0/24 -P forward_mode=route -P dhcp=false --domain tnc.bootcamp.lab tnc
 kcli create network -c 192.168.126.0/24 -P dhcp=false --domain tnc.bootcamp.lab tnc-connected
-logger "Done with 3a"
+echo "Done with 3a"
 ###################
 # Step#3b: DNS:
 ###################
@@ -123,6 +123,6 @@ sleep 10
 systemctl reload NetworkManager.service
 systemctl restart NetworkManager.service 
 systemctl enable NetworkManager.service --now  # to avoid issues faced in case of reoload of host
-logger "done with 3b"
-logger "checking NetworkManager:"
-systemctl is-active NetworkManager | xargs logger
+echo "done with 3b"
+echo "checking NetworkManager:"
+systemctl is-active NetworkManager | xargs echo
